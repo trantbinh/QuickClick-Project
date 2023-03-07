@@ -1,5 +1,6 @@
 package com.example.testapplication.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.testapplication.R;
+import com.example.testapplication.ui.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,19 +51,43 @@ public class AccountFragment extends Fragment {
         return fragment;
     }
 
+    Button frag_login;
+    Button frag_signup;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            frag_login.findViewById(R.id.frag_btn_Login);
+            frag_signup.findViewById(R.id.frag_btn_Signup);
+            frag_login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(String.valueOf(R.layout.activity_login));
+                    startActivity(i);
+                }
+            });
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
-    }
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+             frag_login = view.findViewById(R.id.frag_btn_Login);
+
+            frag_login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Khởi tạo Intent để mở activity mới
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            return view;
+        }
+
 }
